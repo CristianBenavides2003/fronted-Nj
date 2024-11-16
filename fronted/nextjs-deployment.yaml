@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-frontend
+  namespace: devops-dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nextjs-frontend
+  template:
+    metadata:
+      labels:
+        app: nextjs-frontend
+    spec:
+      containers:
+      - name: nextjs-frontend
+        image: cristianbenavides/nextjs-frontend
+        env:
+        - name: API_URL
+          value: "http://fastapi-backend.devops-dev.svc.cluster.local:8000"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextjs-frontend
+  namespace: devops-dev
+spec:
+  selector:
+    app: nextjs-frontend
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+  type: LoadBalancer
