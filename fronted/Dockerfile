@@ -16,6 +16,6 @@ COPY --from=builder /app/public /app/public
 COPY package*.json ./
 RUN npm install --production
 
-ENV PORT=3000
+ENV PORT=3001
 
 CMD ["npm", "start"]
