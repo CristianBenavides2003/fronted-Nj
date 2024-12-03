@@ -18,18 +18,3 @@ spec:
           image: cristianbenavides/nextjs-fronted:latest
           ports:
             - containerPort: 3100  # Puerto donde Angular escucha
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: nextjs-fronted-service
-  namespace: devops-dev
-spec:
-  selector:
-    app: nextjs-fronted
-  ports:
-    - protocol: TCP
-      port: 80        # Puerto del servicio expuesto (público)
-      targetPort: 3001 # Puerto donde Angular escucha dentro del contenedor
-      nodePort: 30003   # Puerto accesible desde los nodos del clúster
-  type: NodePort
