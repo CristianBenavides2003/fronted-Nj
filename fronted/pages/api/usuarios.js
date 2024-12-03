@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL_FASTAPI = 'http://3.228.243.149:30001';
+const API_URL_FASTAPI = 'http://3.228.243.149:30000/fastapi';
 export async function getUsuarios() {
   try {
     const response = await axios.get(`${API_URL_FASTAPI}/users`);
