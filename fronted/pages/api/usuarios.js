@@ -1,47 +1,41 @@
 import axios from 'axios';
-
-const API_URLS = {
-  fastapi: 'http://3.228.243.149:30000',
-  node: 'http://3.228.243.149:30001'
-};
-
-export async function getUsuarios(api = 'fastapi') {
+const API_URL_FASTAPI = 'http://3.228.243.149:30000';
+export async function getUsuarios() {
   try {
-    const response = await axios.get(`${API_URLS[api]}/users`);
-
+    const response = await axios.get(`${API_URL_FASTAPI}/users`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching usuarios from ${api} API:`, error);
+    console.error('Error fetching usuarios from FastAPI:', error);
     return [];
   }
 }
 
-export async function addUsuario(api = 'fastapi', data) {
+export async function addUsuario(data) {
   try {
-    const response = await axios.post(`${API_URLS[api]}/users`, data);
+    const response = await axios.post(`${API_URL_FASTAPI}/users`, data);
     return response.data;
   } catch (error) {
-    console.error(`Error adding usuario to ${api} API:`, error);
+    console.error('Error adding usuario to FastAPI:', error);
     return null;
   }
 }
 
-export async function updateUsuario(api = 'fastapi', id, data) {
+export async function updateUsuario(id, data) {
   try {
-    const response = await axios.put(`${API_URLS[api]}/users/${id}`, data);
+    const response = await axios.put(`${API_URL_FASTAPI}/users/${id}`, data);
     return response.data;
   } catch (error) {
-    console.error(`Error updating usuario in ${api} API:`, error);
+    console.error('Error updating usuario in FastAPI:', error);
     return null;
   }
 }
 
-export async function deleteUsuario(api = 'fastapi', id) {
+export async function deleteUsuario(id) {
   try {
     const response = await axios.delete(`${API_URL_FASTAPI}/users/${id}`);
     return response.data;
   } catch (error) {
-    console.error(`Error deleting usuario from ${api} API:`, error);
+    console.error('Error deleting usuario from FastAPI:', error);
     return null;
   }
 }

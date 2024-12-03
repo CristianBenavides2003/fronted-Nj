@@ -5,23 +5,22 @@ export default function Home() {
   const [usuarios, setUsuarios] = useState([]);
   const [newUser, setNewUser] = useState({ id: '', nombre: '', correo: '' });
   const [editingUser, setEditingUser] = useState(null);
-  const [apiType, setApiType] = useState('fastapi'); // Estado para elegir la API
 
   useEffect(() => {
     const fetchUsuarios = async () => {
-      const data = await getUsuarios(apiType); // Llama a la API seleccionada
+      const data = await getUsuarios();
       setUsuarios(data);
     };
     fetchUsuarios();
-  }, [apiType]); // Vuelve a cargar los usuarios si cambia la API seleccionada
+  }, []);
 
   const handleAddUsuario = async () => {
     const newUserData = {
       id: newUser.id,
       nombre: newUser.nombre,
-      correo: newUser.correo
+      correo: newUser.correo,
     };
-    const addedUser = await addUsuario(apiType, newUserData); // Llama a la API seleccionada
+    const addedUser = await addUsuario(newUserData);
     if (addedUser) {
       setUsuarios([...usuarios, addedUser]);
       setNewUser({ id: '', nombre: '', correo: '' });
@@ -29,7 +28,7 @@ export default function Home() {
   };
 
   const handleDeleteUsuario = async (id) => {
-    const deletedUser = await deleteUsuario(apiType, id); // Llama a la API seleccionada
+    const deletedUser = await deleteUsuario(id);
     if (deletedUser) {
       setUsuarios(usuarios.filter((usuario) => usuario.id !== id));
     }
@@ -42,10 +41,10 @@ export default function Home() {
   const handleUpdateUsuario = async () => {
     const updatedUser = {
       nombre: editingUser.nombre,
-      correo: editingUser.correo
+      correo: editingUser.correo,
     };
 
-    const result = await updateUsuario(apiType, editingUser.id, updatedUser); // Llama a la API seleccionada
+    const result = await updateUsuario(editingUser.id, updatedUser);
     if (result) {
       setUsuarios(
         usuarios.map((usuario) =>
@@ -60,16 +59,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Usuarios-2</h1>
-      {/* Selector para elegir la API */}
-      <div>
-        <label>Seleccione API:</label>
-        <select value={apiType} onChange={(e) => setApiType(e.target.value)}>
-          <option value="fastapi">FastAPI</option>
-          <option value="node">Node.js</option>
-        </select>
-      </div>
-
+      <h1>Usuarios</h1>
       <ul>
         {usuarios.map((usuario) => (
           <li key={usuario.id}>
