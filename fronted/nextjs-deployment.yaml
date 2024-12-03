@@ -1,37 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nextjs-frontend
+  name: frontend-nextjs-deployment
   namespace: devops-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nextjs-frontend
+      app: frontend-nextjs
   template:
     metadata:
       labels:
-        app: nextjs-frontend
+        app: frontend-nextjs
     spec:
       containers:
-      - name: nextjs-frontend
-        image: cristianbenavides/nextjs-frontend
-        env:
-        - name: API_URL
-          value: "http://fastapi-backend.devops-dev.svc.cluster.local:8000"
-        ports:
-        - containerPort: 3000
----
+        - name: frontend-angular
+          image: cristianbenavides/nextjs-fronted:latest
+          ports:
+            - containerPort: 3100  # Puerto donde Angular escucha
+
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextjs-frontend
+  name: frontend-nextjs-service
   namespace: devops-dev
 spec:
   selector:
-    app: nextjs-frontend
+    app: frontend-nextjs
   ports:
-  - protocol: TCP
-    port: 3000
-    targetPort: 3000
-  type: LoadBalancer
+    - protocol: TCP
+      port: 80        # Puerto del servicio expuesto (público)
+      targetPort: 3100  # Puerto donde Angular escucha dentro del contenedor
+      nodePort: 30001   # Puerto accesible desde los nodos del clúster
+  type: NodePort
