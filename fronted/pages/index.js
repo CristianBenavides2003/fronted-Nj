@@ -60,7 +60,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Usuarios-</h1>
+      <h1>Usuarios-1</h1>
       {/* Selector para elegir la API */}
       <div>
         <label>Seleccione API:</label>
