@@ -30,6 +30,6 @@ spec:
   ports:
     - protocol: TCP
       port: 80        # Puerto del servicio expuesto (público)
-      targetPort: 3100  # Puerto donde Angular escucha dentro del contenedor
-      nodePort: 30001   # Puerto accesible desde los nodos del clúster
+      targetPort: 3001 # Puerto donde Angular escucha dentro del contenedor
+      nodePort: 30003   # Puerto accesible desde los nodos del clúster
   type: NodePort
