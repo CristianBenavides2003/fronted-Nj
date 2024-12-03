@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-nextjs-deployment
+  name: nextjs-fronted-deployment
   namespace: devops-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: frontend-nextjs
+      app: nextjs-fronted
   template:
     metadata:
       labels:
-        app: frontend-nextjs
+        app: nextjs-fronted
     spec:
       containers:
-        - name: frontend-angular
+        - name: nextjs-fronted
           image: cristianbenavides/nextjs-fronted:latest
           ports:
             - containerPort: 3100  # Puerto donde Angular escucha
@@ -22,11 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-nextjs-service
+  name: nextjs-fronted-service
   namespace: devops-dev
 spec:
   selector:
-    app: frontend-nextjs
+    app: nextjs-fronted
   ports:
     - protocol: TCP
       port: 80        # Puerto del servicio expuesto (público)
